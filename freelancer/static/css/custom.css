@@ -1,0 +1,105 @@
+.logo-area p{
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #20c997;
+}
+
+.logo-area p span{
+    color: #a2a1a1;
+}
+
+.banner-area {
+    background-color: #f7f7f7;
+}
+
+.banner-area .banner-text {
+    padding: 0 30% 0 5%;
+}
+
+.genric-btn.green {
+    color: #fff;
+    background: #20c997;
+    border: 1px solid transparent;
+}
+
+.genric-btn.green:hover {
+    color: #20c997;
+    border: 1px solid #02b300;
+    background: #fff;
+}
+
+.banner-area .banner-text h1 span {
+    color: #20c997;
+}
+
+.template-btn {
+    background: #20c997;
+}
+
+.search-bg form {
+    background: #20c997;
+}
+
+.single-feature:before{
+    display: block;
+    position: absolute;
+    top: -79px;
+    font-size: 12rem;
+    left: 6px;
+    z-index: 0;
+    font-weight: bold;
+    color: #20c99726;
+}
+
+.single-feature.one:before{
+    content: "1";
+}
+
+.single-feature.two:before{
+    content: "2";
+}
+
+.single-feature.three:before{
+    content: "3";
+}
+
+.single-feature{
+    overflow: hidden;
+}
+
+h5 .secondary-btn {
+    color: #777b7f;
+    font-family: "Open Sans",sans-serif;
+    display: inline-block;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all 0.5s;
+    font-size: 16px;
+    font-weight: 100;
+    text-transform: capitalize;
+}
+
+.employee-area{
+    background-color: #f9f9f9;
+}
+
+.slide-text i {
+    color: #20c997;
+}
+
+.slide-img .hover-state {
+    background-color: rgba(99, 217, 182, 0.76);
+}
+
+.slide-text .secondary-btn:hover {
+    color: #20c997;
+}
+
+.secondary-btn:hover span:before {
+    color: #20c997;
+}
+
+.slide-img {
+    background: #f1efef;
+}
