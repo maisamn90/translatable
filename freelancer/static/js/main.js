@@ -38,7 +38,7 @@
         });
 
         // Nice Select
-        $('select').niceSelect();
+        // $('select').niceSelect();
 
         // Range Slider
         $("#range").ionRangeSlider({

@@ -19,5 +19,18 @@ from freelancer.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', index)
+    url(r'^$', index),
+    url(r'^jobs$', find_jobs),
+    url(r'^freelancers$', find_freelancer),
+    url(r'^signup_freelancer$', signup_freelancer),
+    url(r'^signup_employer$', signup_employer),
+    url(r'^login$', login),
+    url(r'^profile_freelancer$', profile_freelancer),
+    url(r'^job$', job_post),
+    url(r'^edite_freelancer$', edite_freelancer),
+    url(r'^edite_employer', edite_employer),
+    url(r'^signup_global', signup_global),
+    url(r'^create_job', create_job)
+    
+    
 ]

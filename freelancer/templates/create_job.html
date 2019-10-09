@@ -1,0 +1,131 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Header Area Starts -->
+<header class="header-area">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="logo-area">
+                        <p>Translat<span>able</span></p>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="custom-navbar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="main-menu">
+                        <ul>
+                            <li class="active"><a href="index.html">home</a></li>
+                            <li><a href="#">Freelancers</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Find jobs</a></li>
+                                    <li><a href="#">Create profile</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Employers</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Post job</a></li>
+                                    <li><a href="#">Find freelancer</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-btn">
+                                <a href="#" class="login">log in</a>
+                                <a href="#" class="template-btn">sign up</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-title text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h2>Create job post</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End -->
+
+<!-- Job Single Content Starts -->
+<section class="job-single-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-2">
+                <form>
+                    <div class="mt-10">
+                        <input type="text" name="title" placeholder="Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Title'" required class="single-input">
+                    </div>
+
+                    <div class="input-group-icon mt-10">
+                        <div class="form-select" id="default-select2">
+                            <select>
+								<option value="1">Service</option>
+								<option value="1">Bangladesh</option>
+								<option value="1">India</option>
+								<option value="1">England</option>
+								<option value="1">Srilanka</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="mt-10 input-addon">
+                        <input type="number" name="budget" placeholder="Budget" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Budget'" required class="single-input">
+                       
+                    </div>
+                    <div class="input-group-icon mt-10">
+                        <div class="form-select" id="select-languages">
+                            <select id="languages" multiple="multiple">
+								<option  disabled>Languages</option>
+								<option value="1">Bangladesh</option>
+								<option value="1">India</option>
+								<option value="1">England</option>
+								<option value="1">Srilanka</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="mt-10">
+                        <input type="text" id="input-badge" name="skills" placeholder="Skills" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Skills'" required class="single-input" >
+                        <p id="skills-badge"></p>
+                    </div>
+                    <div class="mt-10">
+                        <textarea class="single-textarea" placeholder="Description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description'" required=""></textarea>
+                    </div>
+                    <button class="template-btn mt-3">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Job Single Content End -->
+
+
+<script type="text/javascript">
+    // var input_badge = document.getElementById("input-badge");
+    // input_badge.addEventListener("keypress", function(key) {
+    //     if (key.which == "44" || key.keyCode == "44") {
+    //         alert(input_badge.value)
+    //         var skill = input_badge.value.split(",").pop();
+    //         $( "#skills-badge" ).append( "<span class='badge badge-light'>" + skill + " <a onclick='delete_badge()'>x</a> </span>" );
+    //         // input_badge.value = "";
+
+    //         // document.getElementById("").append("<span>" + skill + "</span>");
+    //     }
+    // });
+
+    // function delete_badge(){
+    //     alert(this.closest("span"))
+    //     // this.parentElement.style.display = 'none';
+    // }
+</script>
+
+
+
+
+
+{% endblock %}

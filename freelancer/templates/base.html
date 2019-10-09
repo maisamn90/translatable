@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <!-- Page Title -->
+    <title>Translatable</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="static/images/logo/favicon.png" type="image/x-icon">
+
+    <!-- CSS Files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/animate-3.7.0.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flat-icon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-4.1.3.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+
+</head>
+
+<body>
+    <!-- Preloader Starts -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    {% block content %} {% endblock %}
+    <!-- Footer Area Starts -->
+    <footer class="footer-area footer-area py-2">
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Translatable <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://maisammaneh.com" target="_blank">Mais Ammaneh</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</span>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="social-icons">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Area End -->
+
+
+    <!-- Javascript -->
+    {% load static %}
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap-4.1.3.min.js' %} "></script>
+    <script src="{% static 'js/vendor/wow.min.js' %} "></script>
+    <script src="{% static 'js/vendor/owl-carousel.min.js' %}"></script>
+    <!--<script src="{% static 'js/vendor/jquery.nice-select.min.js' %} "></script>-->
+    <script src="{% static 'js/vendor/ion.rangeSlider.js' %} "></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+    <!-- Javascript -->
+
+</body>
+
+</html>
