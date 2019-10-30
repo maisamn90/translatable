@@ -273,13 +273,17 @@ def profile_employer(request):
     
     # Delete and Complete job post        
     if request.method == "POST":
-        post_id = request.POST.get('post-id')
-        post = get_object_or_404(Project, pk=post_id)
-        if post.status.name == "New":
+        if 'delete-btn' in request.POST:
+            post_id = request.POST.get('post-id')
+            post = get_object_or_404(Project, pk=post_id)
             post.is_active = False
             post.save()
             return redirect(profile_employer)
         else:
+            post_id = request.POST.get('post-id')
+            post = get_object_or_404(Project, pk=post_id)
+            post_id = request.POST.get('post-id')
+            post = get_object_or_404(Project, pk=post_id)
             review = Reviews()
             stars_review = request.POST.get('stars')
             desc_review = request.POST.get('review-description')
@@ -292,6 +296,10 @@ def profile_employer(request):
             review.stars = stars_review
             review.description = desc_review
             review.save()
+            payment = get_object_or_404(Payments, project = post)
+            payment.freelancer = post.freelancer
+            payment.release_date = datetime.today()
+            payment.save()
             return redirect(profile_employer)
             
     return render(request, 'profile_employer.html', {'employer_user':employer_user, 'employer_project':employer_project,
@@ -407,6 +415,7 @@ def job_post_employer(request, id):
             
             payment = Payments()
             payment.employer = post_employer.user
+            payment.freelancer = selected_freelancer
             payment.project = job_post
             payment.description = ('A payment of {} Charge from {} for {} ').format(job_post.budget , 
                                                                         post_employer.user.first_name,

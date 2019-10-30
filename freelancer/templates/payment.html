@@ -108,10 +108,10 @@
                          <td>${{payment.project.budget}}</td>
                          <td>{{payment.payment_date}}</td>
                          <td>
-                             {% if release_date == "null" %}
-                             Not Released 
-                             {% else %}
+                             {% if payment.release_date %}
                              {{payment.release_date}}
+                             {% else %}
+                             Not Released 
                              {% endif %}
                          </td>
                         </tr>
