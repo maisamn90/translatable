@@ -4,6 +4,16 @@
 <head>
     <!-- Required Meta Tags -->
     <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/animate-3.7.0.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flat-icon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-4.1.3.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -17,16 +27,7 @@
     <link rel="shortcut icon" href="static/images/logo/favicon.png" type="image/x-icon">
 
     <!-- CSS Files -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/animate-3.7.0.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome-4.7.0.min.css' %}">
-    <link rel="stylesheet" href="{% static 'fonts/flat-icon/flaticon.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap-4.1.3.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl-carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/nice-select.css' %} ">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    
 
 
 </head>
@@ -52,12 +53,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="social-icons">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                            </ul>
+
                         </div>
                     </div>
                 </div>
@@ -77,6 +73,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{% static 'js/vendor/ion.rangeSlider.js' %} "></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+    
+    <script src="https://js.stripe.com/v3/"></script>
     <!-- Javascript -->
 
 </body>

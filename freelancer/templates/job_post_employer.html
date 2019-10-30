@@ -1,0 +1,324 @@
+{% extends 'base.html' %} {% block content %} {% load mathfilters %}
+<!-- Header Area Starts -->
+<header class="header-area">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="logo-area">
+                        <a href="{% url 'index' %}"><p>Translat<span>able</span></p></a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="custom-navbar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="main-menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'index' %}">home</a></li>
+                            {% if user.is_authenticated %}
+                                {% if user.is_employer%}
+                                    <li><a href=" {% url 'create_job' %} ">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %} ">Find freelancer</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                {% endif %}
+                            {% else %}
+                            <li><a href="#">Freelancers</a>
+                            <ul class="sub-menu">
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                    <li><a href="{% url 'signup_freelancer' %}">Create profile</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Employers</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{% url 'signup_employer' %}">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %}">Find freelancer</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            
+                            <li class="menu-btn">
+                                {% if user.is_authenticated %}
+                                    <ul>
+                                        <li><a href="#">Hi <b>{{request.user.first_name}}</b><i class="fa fa-caret-down ml-2" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                {% if user.is_employer%}
+                                                <li><a href="{% url 'profile_employer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'employer_payment' %}" class="Profile">Payments</a></li>
+                                                {%else%}
+                                                <li><a href="{% url 'profile_freelancer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'freelancer_payment' %}" class="Profile">Payments</a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'login' %}" class="">log out</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="login">log in</a>
+                                <a href="{% url 'signup_global' %}" class="template-btn">sign up</a>
+                                {% endif %}
+                               
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-title text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-lg-3">
+                    <h2>{{job_post.name}}</h2>
+                    
+                    {% if job_post.status.name == "New" %}
+                    <span class="status custom_badg green-bg ">{{job_post.status}}</span>
+                    {% elif job_post.status.id == 2%}
+                    <span class="status custom_badg orange-bg ">{{job_post.status}}</span>
+                    {% else  %}
+                    <span class="status custom_badg red-bg ">{{job_post.status}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End -->
+
+<!-- Job Single Content Starts -->
+<section class="job-single-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-2">
+                <div class="main-content">
+                    <div class="single-content1">
+                        <div class="single-job mb-4 d-lg-flex justify-content-between">
+                            <div class="job-text w-100">
+                                <div class="job-heading job-heading d-lg-flex justify-content-between">
+                                    <h4>{{job_post.service}}</h4>
+                                    <span>Posted On {{job_post.postdate}}</span>
+                                </div>
+                                <hr>
+                                <ul class="mt-4 d-inline-block mr-5">
+                                    <li class="mb-3">
+                                        <h5><i class="fa fa-users mr-2"></i> Applied candidates: <b class="text-custom-green">{{job_post.applied_freelancer.all|length}}</b></h5>
+                                    </li>
+                                    <li class="mb-3">
+                                        <h5><i class="fa fa-money mr-2"></i> Budget: <b class="text-custom-green">${{job_post.budget}}</b></h5>
+                                    </li>
+                                    <li>
+                                        <h5><i class="fa fa-clock-o mr-2"></i> Time period / hr: <b class="text-custom-green">{{job_post.timeperiod}}</b></h5>
+                                    </li>
+                                </ul>
+                                {% if user.is_freelancer %}
+                                {% if apply_msg %}
+                                <div class="alert alert-info" role="alert">
+                                  Already Applied
+                                </div>
+                                {% else %}
+                                <form method="POST" class="single-btn-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="third-btn apply-job"> Apply </button>
+                                </form>
+                                {% endif %}
+                                
+                                {% elif user.is_employer and request.user == job_post.employer %}
+                                    {% if job_post.status.name == "New" %}
+                                    <a class="third-btn btn-card-right no-border" data-toggle="modal" data-target="#delete-post">Delete</a>
+                                    {% elif job_post.status.name == "In Progress" %}
+                                    <a class="third-btn btn-card-right no-border" data-toggle="modal" data-target="#Complete-post">Complete</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="single-content2 py-4 skills">
+                        <h4>Languages</h4>
+                        <p>
+                            {% for lang in languges %}
+                                <span class="badge badge-light">{{lang}}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="single-content3 py-4 skills">
+                        <h4>Skills Required</h4>
+                        <p>
+                            {% for skill in list_skills%}
+                                <span class="badge badge-light">{{skill}}</span>
+                            {%endfor%}
+                        </p>
+                    </div>
+                    <div class="single-content4 py-4">
+                        <h4>Project description</h4>
+                        <p>{{job_post.description}}</p>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                        {% if user.is_freelancer and request.user != job_post.employer %}
+                            <div class="single-content5' py-4">
+                        <h4>Employer Infomation</h4>
+
+                        <ul class="mt-4 d-inline-block mr-5">
+                            <li class="mb-3">
+                                <h5> Name: <b class="text-custom-green">{{job_post.employer.first_name}} {{job_post.employer.last_name}}</b></h5>
+                            </li>
+                            <li class="mb-3">
+                                <h5>Type: <b class="text-custom-green">{{employer.employer_type}}</b></h5>
+                            </li>
+                            <li>
+                                <h5>projects posted: <b class="text-custom-green">{{employer_posts_count}}</b></h5>
+                            </li>
+                        </ul>
+                    </div>
+                        {% elif request.user.id == job_post.employer.id and freelancer_applied|length != 0 and not job_post.freelancer  %}
+                            <div class="single-content5 py-4">
+                        <h4>Applied freelancers</h4>
+                        
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Experience</th>
+                                    <th scope="col"></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in freelancer_applied %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td><a href="{% url 'view_profile_freelancer' item.user.id %}">{{item.user.first_name}}</a></td>
+                                    <td>{{item.title}}</td>
+                                    <td>{{item.years_experience}}</td>
+                                   <td>
+                                       <form method="POST" >
+                                           {% csrf_token %}
+                                           <input type="hidden" value="{{job_post.id}}" name="post-id"/>
+                                           <input type="hidden" value="{{item.user.id}}" name="freelancer-id"/>
+                                          <!--<button type="submit" name="hire-submit" class="green-btn btn-small">Hire</button>-->
+                                          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-label="Hire"
+                                            data-key="pk_test_8VizLn51sT5UDjuQfxHIcoh600I3fY3kxp"
+                                            data-description="A payment Charge for {{item.user.username}} from {{user.username}}"
+                                            data-amount="{{100|mul:job_post.budget}}"
+                                            data-locale="auto">
+                                           
+                                        </script>
+                                          
+                                       </form>
+                                   </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                        {% elif request.user.id == job_post.employer.id and job_post.freelancer %}
+                        <div class="single-content5' py-4">
+                        <h4>Freelancers Infomation</h4>
+
+                        <ul class="mt-4 d-inline-block mr-5">
+                            <li class="mb-3">
+                                <h5> Name: <a href=" {% url 'view_profile_freelancer' job_post.freelancer.id %}"><b class="text-custom-green">{{job_post.freelancer.first_name}} {{job_post.freelancer.last_name}}</b></a></h5>
+                            </li>
+                        </ul>
+                    </div>
+                        {% endif %}
+                            
+                    {%else%}
+                    <div class="single-content5 py-4">
+                        <h4>Employer Infomation</h4>
+
+                        <ul class="mt-4 d-inline-block mr-5">
+                            <li class="mb-3">
+                                <h5> Name: <b class="text-custom-green">{{job_post.employer.first_name}} {{job_post.employer.last_name}}</b></h5>
+                            </li>
+                            <li class="mb-3">
+                                <h5>Type: <b class="text-custom-green">{{employer.employer_type}}</b></h5>
+                            </li>
+                            <li>
+                                <h5>projects posted: <b class="text-custom-green">{{employer_posts_count}}</b></h5>
+                            </li>
+                        </ul>
+                    </div>  
+                    {% endif %}
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Job Single Content End -->
+
+<!--Delete job post modal-->
+<div class="modal fade" id="delete-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                              <form method="POST" class="single-btn-form">
+                                                     {% csrf_token %}
+                                            <div class="modal-content">
+                                              <div class="modal-body">
+                                                  <p class="delete-icon-modal"><i class="fa fa-times " aria-hidden="true"></i></p>
+                                                <p>Are you sure you want to delete post <b></b>{{item.name}}</p>
+                                                    <input type="hidden" value="{{job_post.id}}" name="post-id">
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger" name="delete-submit">Yes Delete</button>
+                                              </div>
+                                            </div>
+                                            </form>
+                                          </div>
+                                        </div>
+
+
+<!--Complete modal box-->
+<div class="modal fade" id="Complete-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                              <form method="POST" class="single-btn-form" >
+                                                     {% csrf_token %}
+                                            <div class="modal-content">
+                                              <div class="modal-body">
+                                                  <p class="check-icon-modal"><i class="fa fa-check " aria-hidden="true"></i></p>
+                                                <p>Are you sure you want to Complete post: <b>{{job_post.name}}</b></p>
+                                                    <input type="hidden" value="{{item.id}}" name="post-id">
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" name="stars" aria-describedby="starshelper" placeholder="Stars" min="1" max="5" required="required">
+                                                        <small id="starshelper" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="3"  name="review-description" placeholder="Review description" required="required"></textarea>
+                                                    </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="complete-submit" class="btn btn-success">Yes</button>
+                                              </div>
+                                            </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                        <script type="text/javascript">
+                                            var stripe = Stripe('pk_test_8VizLn51sT5UDjuQfxHIcoh600I3fY3kxp');
+                                            stripe.redirectToCheckout({
+                                              // Make the id field from the Checkout Session creation API response
+                                              // available to this file, so you can provide it as parameter here
+                                              // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+                                              sessionId: '{{CHECKOUT_SESSION_ID}}'
+                                            }).then(function (result) {
+                                              // If `redirectToCheckout` fails due to a browser or network
+                                              // error, display the localized error message to your customer
+                                              // using `result.error.message`.
+                                            });
+                                        </script>
+{% endblock %}

@@ -13,7 +13,7 @@
 
         // Employee Slider
         $('.employee-slider').owlCarousel({
-            loop: true,
+            loop: false,
             margin: 20,
             autoplay: true,
             autoplayTimeout: 2000,

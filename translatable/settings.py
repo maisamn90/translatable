@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'freelancer'
+    'freelancer',
+    'crispy_forms',
+    'django_filters',
+    'mathfilters',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'freelancer.CustomUser'
 
@@ -76,27 +81,18 @@ WSGI_APPLICATION = 'translatable.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': '**',
-#         'USER': '**',
-#         'PASSWORD':'**',
-#         'HOST':'**',
-#         'PORT':''
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Translatable_db',
-        'USER': 'root',
-        'PASSWORD':'root1234',
-        'HOST':'translatable.ctr3xxx4mow6.ca-central-1.rds.amazonaws.com',
+        'NAME': '**',
+        'USER': '**',
+        'PASSWORD':'**',
+        'HOST':'**',
         'PORT':''
     }
 }
+
+
 
 
 
@@ -138,3 +134,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STRIPE_SECRET_KEY = 'sk_test_HCiawcdgnOhCUctRnUOPuvUt00UljqvSnP'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_8VizLn51sT5UDjuQfxHIcoh600I3fY3kxp'

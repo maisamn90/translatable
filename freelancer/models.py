@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 
+
 # Create your models here.
 
 # Country model
@@ -9,6 +10,7 @@ class Country(models.Model):
     name = models.CharField(max_length=50, null= False)
     description = models.CharField(max_length=100, null= True)
     is_active = models.BooleanField(default= True)
+    
 
     def __str__(self):
         return (self.name)
@@ -37,6 +39,14 @@ class Employer_type (models.Model):
     def __str__(self):
         return (self.name)
 
+# Gender type model
+class Gender (models.Model):
+    name = models.CharField(max_length=50, null= False)
+    is_active = models.BooleanField(default= True)
+
+    def __str__(self):
+        return (self.name)
+
 # Service model
 class Service (models.Model):
     name = models.CharField(max_length=50, null= False)
@@ -48,63 +58,79 @@ class Service (models.Model):
     
 # CustomeUser Model
 class CustomUser(AbstractUser):
-    country = models.ForeignKey(Country, null= True)
-    image = models.CharField(max_length=50, null= True)
+    country = models.ForeignKey(Country, null= True,on_delete=models.CASCADE,)
+    image = models.ImageField(upload_to='profile_picture/', default='profile_picture/default_profile.png')
     is_freelancer = models.BooleanField(default= True)
     is_employer = models.BooleanField(default= False)
     
 
 # Freelancer model
 class Freelancer(models.Model):
-    user = models.ForeignKey(CustomUser, null= False)
-    language = models.ManyToManyField(Language, null= True)
-    skills = models.TextField(null= True)
-    gender = models.CharField(max_length=10, null= True)
-    description= models.CharField(max_length=1000, null= True)
+    user = models.ForeignKey(CustomUser, null= False, on_delete=models.CASCADE,)
+    language = models.ManyToManyField(Language, null= True, related_name="freelancer_language")
+    gender = models.ForeignKey(Gender, null= True, on_delete=models.CASCADE,)
+    title = models.CharField(max_length=100, null= True)
+    years_experience = models.IntegerField(null= True)
+    skills = models.CharField(max_length=300, null= True)
+    description= models.TextField(max_length=1000, null= True)
     is_active = models.BooleanField(default= True)
 
     def __str__(self):
-        return (self.name)
+        return (self.user.username)
 
 # Employer model
 class Employer (models.Model):
-    user = models.ForeignKey(CustomUser, null= False)
-    employer_type = models.ForeignKey(Employer_type, null= True)
+    user = models.ForeignKey(CustomUser, null= False, on_delete=models.CASCADE,)
+    employer_type = models.ForeignKey(Employer_type, null= True, on_delete=models.CASCADE,)
     is_active = models.BooleanField(default= True)
 
     def __str__(self):
-        return (self.name)
+        return (self.user.first_name)
 
 # Project model
 class Project (models.Model):
-    freelancer = models.ForeignKey(CustomUser, null= True, related_name="freelancer_user")
-    employer = models.ForeignKey(CustomUser, null= False, related_name="employer_user")
-    service = models.ForeignKey(Service, null= False)
-    status= models.ForeignKey(Status, null=False)
+    freelancer = models.ForeignKey(CustomUser, null= True, related_name="freelancer_user", on_delete=models.CASCADE,)
+    employer = models.ForeignKey(CustomUser, null= False, related_name="employer_user", on_delete=models.CASCADE,)
+    service = models.ForeignKey(Service, null= False, on_delete=models.CASCADE,)
+    status= models.ForeignKey(Status, null=False, on_delete=models.CASCADE,)
     language = models.ManyToManyField(Language, null= False)
-    skills = models.TextField(null= True)
+    name = models.CharField(max_length=100, null= False)
+    skills = models.CharField(max_length=300, null= True)
     budget = models.IntegerField(null= False)
     timeperiod  = models.IntegerField(null= False)
     postdate = models.DateField(default=datetime.now)
     completiondate = models.DateField(null= True)
-    description= models.CharField(max_length=1000, null= True)
+    description= models.TextField(max_length=1000, null= True)
     is_active = models.BooleanField(default= True)
+    applied_freelancer = models.ManyToManyField(Freelancer, null= True)
     
     def __str__(self):
         return (self.name)
 
 # Reviews  model
 class Reviews (models.Model):
-    freelancer = models.ForeignKey(CustomUser, null= True, related_name="review_freelancer_user")
-    employer = models.ForeignKey(CustomUser, null= False, related_name="review_employer_user")
-    project = models.ForeignKey(Project, null= False)
+    freelancer = models.ForeignKey(CustomUser, null= True, related_name="review_freelancer_user", on_delete=models.CASCADE,)
+    employer = models.ForeignKey(CustomUser, null= False, related_name="review_employer_user", on_delete=models.CASCADE,)
+    project = models.ForeignKey(Project, null= False, on_delete=models.CASCADE,)
     description = models.CharField(max_length=300, null= True)
     stars = models.IntegerField(null= False)
     is_active = models.BooleanField(default= True)
     
     def __str__(self):
-        return (self.name)
+        return (self.freelancer.username)
 
+# Payments  model
+class Payments (models.Model):
+    freelancer = models.ForeignKey(CustomUser, null= True, related_name="payment_freelancer_user", on_delete=models.CASCADE,)
+    employer = models.ForeignKey(CustomUser, null= False, related_name="payment_employer_user", on_delete=models.CASCADE,)
+    project = models.ForeignKey(Project, null= False, on_delete=models.CASCADE,)
+    description = models.CharField(max_length=300, null= True)
+    payment_date = models.DateField(default=datetime.now)
+    release_date = models.DateField(null= True)
+    is_active = models.BooleanField(default= True)
+    
+    def __str__(self):
+        return (self.project.name)
     
 
     

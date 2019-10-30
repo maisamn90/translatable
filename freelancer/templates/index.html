@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <p>Translat<span>able</span></p>
+                        <a href="{% url 'index' %}"><p>Translat<span>able</span></p></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -18,22 +18,50 @@
                     </div>  
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html">home</a></li>
+                            <li class="active"><a href="{% url 'index' %}">home</a></li>
+                            {% if user.is_authenticated %}
+                                {% if user.is_employer%}
+                                    <li><a href=" {% url 'create_job' %} ">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %} ">Find freelancer</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                {% endif %}
+                            {% else %}
                             <li><a href="#">Freelancers</a>
                             <ul class="sub-menu">
-                                    <li><a href="jobs">Find jobs</a></li>
-                                    <li><a href="signup_freelancer">Create profile</a></li>
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                    <li><a href="{% url 'signup_freelancer' %}">Create profile</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Employers</a>
                                 <ul class="sub-menu">
-                                    <li><a href="job_post">Post job</a></li>
-                                    <li><a href="find_freelancer">Find freelancer</a></li>
+                                    <li><a href="{% url 'signup_employer' %}">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %}">Find freelancer</a></li>
                                 </ul>
                             </li>
+                            {% endif %}
+                            
                             <li class="menu-btn">
-                                <a href="login" class="login">log in</a>
-                                <a href="signup_global" class="template-btn">sign up</a>
+                                {% if user.is_authenticated %}
+                                    <ul>
+                                        <li><a href="#">Hi <b>{{request.user.first_name}}</b><i class="fa fa-caret-down ml-2" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                {% if user.is_employer%}
+                                                <li><a href="{% url 'profile_employer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'employer_payment' %}" class="Profile">Payments</a></li>
+                                                {%else%}
+                                                <li><a href="{% url 'profile_freelancer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'freelancer_payment' %}" class="Profile">Payments</a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'login' %}" class="">log out</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="login">log in</a>
+                                <a href="{% url 'signup_global' %}" class="template-btn">sign up</a>
+                                {% endif %}
+                               
                             </li>
                         </ul>
                     </div>
@@ -51,9 +79,18 @@
                 </div>
                 <div class="col-lg-6 align-self-center">
                     <div class="banner-text">
+                        {% if user.is_authenticated %}
+                                {% if user.is_employer%}
+                                <h1>find your professional<span>translator</span> with Translatable </h1>
+                                {% else %}
+                                <h1>find your ideal <span>translate job</span> with Translatable </h1>
+                                {% endif %}
+                        {% else%}
                         <h1>find your professional<span>translator</span> with Translatable </h1>
-                        <a href="signup_freelancer" class="genric-btn green radius">Apply as Freelancer</a>
-                        <a href="signup_employer" class="genric-btn green radius">Apply sa Employer</a>
+                        <a href="{% url 'signup_freelancer' %}" class="genric-btn green radius">Apply as Freelancer</a>
+                        <a href="{% url 'signup_employer' %}" class="genric-btn green radius">Apply sa Employer</a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -61,36 +98,7 @@
     </section>
     <!-- Banner Area End -->
 
-    <!-- Search Area Starts -->
-    <div class="search-area">
-        <div class="search-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form action="#" class="d-md-flex justify-content-between">
-                            <select class="search-select">
-                                <option value="1">All Services</option>
-                                <option value="2">Part Time</option>
-                                <option value="3">Full Time</option>
-                                <option value="4">Remote</option>
-                                <option value="5">Office Job</option>
-                            </select>
-                            <select class="search-select">
-                                <option value="1">Languages</option>
-                                <option value="2">Dhaka</option>
-                                <option value="3">Rajshahi</option>
-                                <option value="4">Barishal</option>
-                                <option value="5">Noakhali</option>
-                            </select>
-                            <input type="text" placeholder="Search Keyword" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'" required>
-                            <button type="submit" class="template-btn">find job</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Search Area End -->
+
 
     <!-- Feature Area Starts -->
     <section class="feature-area section-padding2">
@@ -146,28 +154,28 @@
                     <div class="single-category text-center mb-4">
                         <img src="static/images/translate-icon.png" width="50" alt="category">
                         <h4>Translate</h4>
-                        <h5><a href="#" class="secondary-btn">250 open job<span class="flaticon-next"></span></a></h5>
+                        <h5><a href="{% url 'jobs' %}" class="secondary-btn">{{translating_jobs}} open job<span class="flaticon-next"></span></a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="single-category text-center mb-4">
                         <img src="static/images/editing.png" width="50" alt="category">
                         <h4>Editing</h4>
-                        <h5><a href="#" class="secondary-btn">250 open job<span class="flaticon-next"></span></a></h5>
+                        <h5><a href="{% url 'jobs' %}" class="secondary-btn">{{expert_jobs}} open job<span class="flaticon-next"></span></a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="single-category text-center mb-4">
                         <img src="static/images/proofreading.png" width="50" alt="category">
                         <h4>Proofreading</h4>
-                        <h5><a href="#" class="secondary-btn">250 open job<span class="flaticon-next"></span></a></h5>
+                        <h5><a href="{% url 'jobs' %}" class="secondary-btn">{{proofreading_jobs}} open job<span class="flaticon-next"></span></a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="single-category text-center mb-4">
                         <img src="static/images/writing.png" width="50" alt="category">
                         <h4>Writing</h4>
-                        <h5><a href="#" class="secondary-btn">250 open job<span class="flaticon-next"></span></a></h5>
+                        <h5><a href="{% url 'jobs' %}" class="secondary-btn">{{writing_jobs}} open job<span class="flaticon-next"></span></a></h5>
                     </div>
                 </div>
             </div>
@@ -185,96 +193,44 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class ="row" >
                 <div class="col-lg-12">
-                    <div class="jobs-tab tab-item">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="recent-tab" data-toggle="tab" href="#recent" role="tab" aria-controls="recent" aria-selected="true">recent</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="translate-tab" data-toggle="tab" href="#translate" role="tab" aria-controls="translate" aria-selected="false">Translate</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="writing-tab" data-toggle="tab" href="#writing" role="tab" aria-controls="writing" aria-selected="false">Writing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="editing-tab" data-toggle="tab" href="#editing" role="tab" aria-controls="editing" aria-selected="false">Editing</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {% for job in top_two_jobs_list %}
+                            <div class="single-job mb-4 d-lg-flex justify-content-between">
+                                <div class="job-text">
+                                    <h4>{{job.name}}</h4>
+                                    <ul class="mt-4">
+                                        <li class="mb-3">
+                                            <h5><b>{{job.service}}</b></h5>
+                                        </li>
+                                        <li class="mb-3">
+                                            <h5> <strong>Employer :</strong> {{job.employer.first_name}} {{job.employer.last_name}}</h5>
+                                        </li>
+                                        <li class="mb-3">
+                                            <h5> <strong>languages : </strong>
+                                            {% for lang in languges %}
+                                                <span class="badge badge-light">{{lang}}</span>
+                                            {% endfor %}
+                                            </h5>
+                                        </li>
+                                        <li class="mb-3">
+                                            <h5><strong> timeperiod :</strong> {{job.timeperiod}}</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="job-btn align-self-center">
+                                    {% if user.is_authenticated %}
+                                    <a href="job/{{job.id}}" class="third-btn">More details</a>
+                                    {% else %}
+                                    <a href="{% url 'login' %}" class="third-btn">More details</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor%}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="single-job mb-4 d-lg-flex justify-content-between">
-                                <div class="job-text">
-                                    <h4>Assistant Executive - Production/ Quality Control</h4>
-                                    <ul class="mt-4">
-                                        <li class="mb-3"><h5><i class="fa fa-map-marker"></i> new yourk, USA</h5></li>
-                                        <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> Applied Chemistry & Chemical Engineering / Chemistry</h5></li>
-                                        <li><h5><i class="fa fa-clock-o"></i> Deadline Deadline: Dec 11, 2018</h5></li>
-                                    </ul>
-                                </div>
-                                <div class="job-btn align-self-center">
-                                    <a href="job" class="third-btn">More details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="translate" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="single-job mb-4 d-lg-flex justify-content-between">
-                                <div class="job-text">
-                                    <h4>Asst. Manager, Production (Woven Dyeing)</h4>
-                                    <ul class="mt-4">
-                                        <li class="mb-3"><h5><i class="fa fa-map-marker"></i> new yourk, USA</h5></li>
-                                        <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> Applied Chemistry & Chemical Engineering / Chemistry</h5></li>
-                                        <li><h5><i class="fa fa-clock-o"></i> Deadline Deadline: Dec 11, 2018</h5></li>
-                                    </ul>
-                                </div>
-                                <div class="job-btn align-self-center">
-                                    <a href="job" class="third-btn">More details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="writing" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="single-job mb-4 d-lg-flex justify-content-between">
-                                <div class="job-text">
-                                    <h4>Deputy Manager/ Assistant Manager - Footwear</h4>
-                                    <ul class="mt-4">
-                                        <li class="mb-3"><h5><i class="fa fa-map-marker"></i> new yourk, USA</h5></li>
-                                        <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> Applied Chemistry & Chemical Engineering / Chemistry</h5></li>
-                                        <li><h5><i class="fa fa-clock-o"></i> Deadline Deadline: Dec 11, 2018</h5></li>
-                                    </ul>
-                                </div>
-                                <div class="job-btn align-self-center">
-                                    <a href="job" class="third-btn">More details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="editing" role="tabpanel" aria-labelledby="contact-tab2s">
-                            <div class="single-job mb-4 d-lg-flex justify-content-between">
-                                <div class="job-text">
-                                    <h4>R&D Manager (Technical Lab Department)</h4>
-                                    <ul class="mt-4">
-                                        <li class="mb-3"><h5><i class="fa fa-map-marker"></i> new yourk, USA</h5></li>
-                                        <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> Applied Chemistry & Chemical Engineering / Chemistry</h5></li>
-                                        <li><h5><i class="fa fa-clock-o"></i> Deadline Deadline: Dec 11, 2018</h5></li>
-                                    </ul>
-                                </div>
-                                <div class="job-btn align-self-center">
-                                    <a href="job" class="third-btn">More details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="more-job-btn mt-5 text-center">
-                <a href="jobs" class="template-btn">more job posts</a>
-            </div>
+
+
         </div>
     </section>
     <!-- Jobs Area End -->
@@ -293,43 +249,36 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="employee-slider owl-carousel">
+                        
+                        {% for review in top_two_reviews_list %}
                         <div class="single-slide d-sm-flex">
                             <div class="slide-img">
-                                <img src="static/images/user-image.png"></img>
+                                <img src="{{review.freelancer.image.url}}"></img>
                                 <div class="hover-state">
                                     <div class="hover-text text-center">
-                                        <h3>david aron</h3>
-                                        <h5>Facebook</h5>
+                                        <h3>{{review.freelancer.first_name}} <br>{{review.freelancer.last_name}}</h3>
+                                        <h5>{{review.freelancer.title}}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="slide-text align-self-center">
                                 <i class="fa fa-quote-left"></i>
-                                <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
-                                <p><a href="profile_freelancer" class="secondary-btn">Check profile<span class="flaticon-next"></span></a></p>
+                                <p>{{review.description}}</p>
+                                {% if user.is_authenticated %}
+                                    {% if request.user.id == review.freelancer.id %}
+                                    <p><a href="{% url 'profile_freelancer' %}" class="secondary-btn">Check profile<span class="flaticon-next"></span></a></p>
+                                    {% else %}
+                                    <p><a href="view_profile_freelancer/{{review.freelancer.id}}" class="secondary-btn">Check profile<span class="flaticon-next"></span></a></p>
+                                    {% endif %}
+                                {% else %}
+                                <p><a href="view_profile_freelancer/{{review.freelancer.id}}" class="secondary-btn">Check profile<span class="flaticon-next"></span></a></p>
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="single-slide d-sm-flex">
-                            <div class="slide-img">
-                                <img src="static/images/user-image.png"></img>
-                                <div class="hover-state">
-                                    <div class="hover-text text-center">
-                                        <h3>david aron</h3>
-                                        <h5>Twitter</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slide-text align-self-center">
-                                <i class="fa fa-quote-left"></i>
-                                <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
-                                <p><a href="profile_freelancer" class="secondary-btn">Check profile<span class="flaticon-next"></span></a></p>
-                            </div>
-                        </div>
+                        
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
-            <div class="more-job-btn mt-5 text-center">
-                <a href="freelancers" class="template-btn">Mre Profiles</a>
             </div>
         </div>
     </section>

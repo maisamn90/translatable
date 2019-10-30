@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} 
+{% block content %}
 <!-- Header Area Starts -->
 <header class="header-area">
     <div class="header-top">
@@ -6,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <p>Translat<span>able</span></p>
+                        <a href="{% url 'index' %}"><p>Translat<span>able</span></p></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -17,25 +18,52 @@
                     </div>
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html">home</a></li>
+                            <li class="active"><a href="{% url 'index' %}">home</a></li>
+                            {% if user.is_authenticated %}
+                                {% if user.is_employer%}
+                                    <li><a href=" {% url 'create_job' %} ">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %} ">Find freelancer</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                {% endif %}
+                            {% else %}
                             <li><a href="#">Freelancers</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Find jobs</a></li>
-                                    <li><a href="#">Create profile</a></li>
+                            <ul class="sub-menu">
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                    <li><a href="{% url 'signup_freelancer' %}">Create profile</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Employers</a>
                                 <ul class="sub-menu">
-                                    <li><a href="#">Post job</a></li>
-                                    <li><a href="#">Find freelancer</a></li>
+                                    <li><a href="{% url 'signup_employer' %}">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %}">Find freelancer</a></li>
                                 </ul>
                             </li>
+                            {% endif %}
+                            
                             <li class="menu-btn">
-                                <a href="#" class="login">log in</a>
-                                <a href="#" class="template-btn">sign up</a>
+                                {% if user.is_authenticated %}
+                                    <ul>
+                                        <li><a href="#">Hi <b>{{request.user.first_name}}</b><i class="fa fa-caret-down ml-2" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                {% if user.is_employer%}
+                                                <li><a href="{% url 'profile_employer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'employer_payment' %}" class="Profile">Payments</a></li>
+                                                {%else%}
+                                                <li><a href="{% url 'profile_freelancer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'freelancer_payment' %}" class="Profile">Payments</a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'login' %}" class="">log out</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="login">log in</a>
+                                <a href="{% url 'signup_global' %}" class="template-btn">sign up</a>
+                                {% endif %}
+                               
                             </li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -58,19 +86,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-2">
-                <form action="#">
-                    <div class="left">
-                        <input type="text" placeholder="Enter your first name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your first name'" required>
-                        <input type="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" required>
-                        <input type="password" placeholder="Enter password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter password'" required>
-                    </div>
-                    <div class="right">
-                        <input type="text" placeholder="Enter your last name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your last name'" required>
-                        <input type="text" placeholder="Enter username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter username'" required>
-                        <input type="password" placeholder="Conform password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Conform password'" required>
-                        
-                    </div>
-                    <button type="submit" class="template-btn">subscribe now</button>
+                <form method="post">
+                    {% csrf_token %}
+                   {{ form|crispy }}
+                    <button type="submit" class="template-btn">Sign Up</button>
                 </form>
             </div>
         </div>

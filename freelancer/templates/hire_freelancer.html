@@ -1,0 +1,145 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Header Area Starts -->
+<header class="header-area">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="logo-area">
+                        <a href="{% url 'index' %}"><p>Translat<span>able</span></p></a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="custom-navbar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="main-menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'index' %}">home</a></li>
+                            {% if user.is_authenticated %}
+                                {% if user.is_employer%}
+                                    <li><a href=" {% url 'create_job' %} ">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %} ">Find freelancer</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                {% endif %}
+                            {% else %}
+                            <li><a href="#">Freelancers</a>
+                            <ul class="sub-menu">
+                                    <li><a href="{% url 'jobs' %}">Find jobs</a></li>
+                                    <li><a href="{% url 'signup_freelancer' %}">Create profile</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Employers</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{% url 'signup_employer' %}">Post job</a></li>
+                                    <li><a href="{% url 'freelancers' %}">Find freelancer</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            
+                            <li class="menu-btn">
+                                {% if user.is_authenticated %}
+                                    <ul>
+                                        <li><a href="#">Hi <b>{{request.user.first_name}}</b><i class="fa fa-caret-down ml-2" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                {% if user.is_employer%}
+                                                <li><a href="{% url 'profile_employer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'employer_payment' %}" class="Profile">Payments</a></li>
+                                                {%else%}
+                                                <li><a href="{% url 'profile_freelancer' %}" class="Profile">My Profile</a></li>
+                                                <li><a href="{% url 'freelancer_payment' %}" class="Profile">Payments</a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'login' %}" class="">log out</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="login">log in</a>
+                                <a href="{% url 'signup_global' %}" class="template-btn">sign up</a>
+                                {% endif %}
+                               
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-title text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h2>Hire freelancer</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End -->
+
+<!-- Job Single Content Starts -->
+<section class="job-single-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-2">
+                <form>
+                   
+                    <div class="input-group-icon mt-10">
+                        <div class="form-select" id="default-select2">
+                            <select>
+								<option value="1">Choose Candidate</option>
+								<option value="1">Bangladesh</option>
+								<option value="1">India</option>
+								<option value="1">England</option>
+								<option value="1">Srilanka</option>
+							</select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-icon mt-10">
+                        <div class="form-select" id="default-select2">
+                            <select>
+								<option value="1">Choose Project</option>
+								<option value="1">Bangladesh</option>
+								<option value="1">India</option>
+								<option value="1">England</option>
+								<option value="1">Srilanka</option>
+							</select>
+                        </div>
+                    </div>
+                    <button class="template-btn mt-3">Pay and Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Job Single Content End -->
+
+
+<script type="text/javascript">
+    // var input_badge = document.getElementById("input-badge");
+    // input_badge.addEventListener("keypress", function(key) {
+    //     if (key.which == "44" || key.keyCode == "44") {
+    //         alert(input_badge.value)
+    //         var skill = input_badge.value.split(",").pop();
+    //         $( "#skills-badge" ).append( "<span class='badge badge-light'>" + skill + " <a onclick='delete_badge()'>x</a> </span>" );
+    //         // input_badge.value = "";
+
+    //         // document.getElementById("").append("<span>" + skill + "</span>");
+    //     }
+    // });
+
+    // function delete_badge(){
+    //     alert(this.closest("span"))
+    //     // this.parentElement.style.display = 'none';
+    // }
+</script>
+
+
+
+
+
+{% endblock %}

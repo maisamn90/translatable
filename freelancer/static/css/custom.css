@@ -134,6 +134,7 @@ h5 .secondary-btn {
 
 .page-title h2 {
     font-size: 44px;
+    margin-top: 37px;
 }
 
 .job-img {
@@ -305,7 +306,8 @@ a:hover {
     border: none;
     border-radius: 0;
 }
-.search-select{
+
+.search-select {
     width: 27%;
     border: none;
     margin: 0 15px 0 0;
@@ -322,9 +324,216 @@ a:hover {
 .input-addon {
     position: relative;
 }
+
 .input-addon::before {
     content: "$";
     position: absolute;
     right: 12px;
     top: 7px;
+}
+
+.single-job.listing {
+    padding: 20px;
+}
+
+.single-job.inside-list {
+    padding: 20px;
+    background: #fff;
+}
+
+.single-job.inside-list:hover {
+    box-shadow: none;
+}
+
+.btn-card-right {
+    float: right;
+    margin: 26px 6px;
+}
+
+.green-btn {
+    float: right;
+    background: #20c997;
+    border: 1px solid #20c997;
+    color: #fff !important;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    padding: 10px 24px !important;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all 0.5s;
+}
+
+.green-btn:hover {
+    background-color: #fff;
+    color: #20c997 !important;
+    border: 1px solid #20c997;
+}
+
+.btn-small {
+    padding: 5px 10px !important;
+    font-size: 12px;
+}
+
+.btn-link.title {
+    color: #222;
+    font-family: "Poppins", sans-serif;
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-link.title:hover {
+    color: #20c997;
+    text-decoration: none;
+}
+
+.single-btn-form {
+    float: right;
+}
+
+.no-border {
+    border: none;
+}
+
+.third-btn {
+    cursor: pointer;
+}
+
+.delete-icon-modal {
+    font-size: 27pt;
+    text-align: center;
+    color: #dc3545;
+}
+
+.check-icon-modal {
+    font-size: 27pt;
+    text-align: center;
+    color: #28a745;
+}
+
+.search-bg .form-group {
+    float: left;
+    width: 40%;
+    margin-right: 20px;
+    margin-top: -15px
+}
+
+.search-bg label{
+    color: #fff;
+}
+
+.search-bg form input {
+    width: 100%;
+}
+
+.slide-text {
+    width: 100%;
+}
+
+.custom_badg {
+    padding: 5px 17px;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    box-shadow: 1px 1px 2px #6d6d6d;
+}
+
+.custom_badg.green-bg{
+    background-color: #299029;
+}
+
+.custom_badg.orange-bg{
+    background-color: #f17d19;
+}
+
+.custom_badg.red-bg{
+    background-color: #e00e0e;
+}
+
+.custom-navbar {
+    background: #20c997;
+    top: -63px;
+}
+
+.main-menu ul li ul.sub-menu {
+    width: 200px;
+}
+
+b, sup, sub, u, del {
+    color: #20c997;
+}
+
+.main-menu ul li a{
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+.main-menu ul li a:hover {
+    color: #20c997;
+}
+
+.header-area.main-header {
+    padding: 10px 0;
+}
+.header-area.main-header:after {
+    background: linear-gradient(to right, #00a4ed 25%,#ffcd02 25%, #ffcd02 50%, #fd4d5d 50%, #fd4654 75%, #65c1ac 75%);
+    position: absolute;
+    content: '';
+    height: 4px;
+    right: 0;
+    left: 0;
+    top: 80px;
+}
+.header-top {
+    padding: 10px 0;
+}
+
+.header-top:after {
+    background: linear-gradient(to right, #00a4ed 25%,#ffcd02 25%, #ffcd02 50%, #fd4d5d 50%, #fd4654 75%, #65c1ac 75%);
+    position: absolute;
+    content: '';
+    height: 4px;
+    right: 0;
+    left: 0;
+    top: 80px;
+}
+
+.single-page .header-top:after {
+    display: none;
+}
+
+.main-container {
+    min-height: calc(100vh - 142px);
+}
+
+#id_service option[value=""]{
+    content: "select";
+}
+
+.job-heading.btn-heading h4{
+    
+}
+
+
+/*********** Stripe Button style *********/
+
+.stripe-button-el span{
+    background-image: none !important;
+    background-color: #20c997 !important;
+}
+
+.stripe-button-el {
+     background-image: none !important;
+     background-color: #20c997 !important;
 }
