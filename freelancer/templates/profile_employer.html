@@ -206,7 +206,7 @@
                                                                     <h5><i class="fa fa-clock-o mr-2"></i> Time period / hr: <b class="text-custom-green">{{item.timeperiod}}</b></h5>
                                                                 </li>
                                                                 <li class="mb-3">
-                                                                    <h5><i class="fa fa-money mr-2"></i> Freelancer: <b class="text-custom-green">{{item.freelancer.first_name}} {{item.freelancer.last_name}}</b></h5>
+                                                                    <h5><i class="fa fa-user mr-2"></i> Freelancer: <a href="{% url 'view_profile_freelancer' item.freelancer.id %}"><b class="text-custom-green">{{item.freelancer.first_name}} {{item.freelancer.last_name}}</b></a></h5>
                                                                 </li>
 
                                                             </ul>
@@ -286,7 +286,7 @@
                                                                     <h5><i class="fa fa-clock-o mr-2"></i> Time period / hr: <b class="text-custom-green">{{item.timeperiod}}</b></h5>
                                                                 </li>
                                                                 <li class="mb-3">
-                                                                    <h5><i class="fa fa-user mr-2"></i> Freelancer: <b class="text-custom-green">{{item.freelancer.first_name}} {{item.freelancer.last_name}}</b></h5>
+                                                                    <h5><i class="fa fa-user mr-2"></i> Freelancer: <a href="{% url 'view_profile_freelancer' item.freelancer.id %}"><b class="text-custom-green">{{item.freelancer.first_name}} {{item.freelancer.last_name}}</b></a></h5>
                                                                 </li>
 
                                                             </ul>

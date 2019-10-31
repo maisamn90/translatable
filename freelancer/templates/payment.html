@@ -103,8 +103,8 @@
                         {% for payment in employer_payment %}
                         <tr>
                          <th scope="row">{{ forloop.counter }}</th>
-                         <td>{{payment.project.name}}</td>
-                         <td>{{payment.freelancer.first_name}} {{payment.freelancer.last_name}}</td>
+                         <td><a href="{% url 'job' payment.project.id %}">{{payment.project.name}}</a></td>
+                         <td><a href="{% url 'view_profile_freelancer' payment.freelancer.id %}">{{payment.freelancer.first_name}} {{payment.freelancer.last_name}}</a></td>
                          <td>${{payment.project.budget}}</td>
                          <td>{{payment.payment_date}}</td>
                          <td>

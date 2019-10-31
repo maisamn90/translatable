@@ -12,6 +12,8 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 def index(request):
+    
+    # show top freelancer 
     reviews  = Reviews.objects.filter(is_active= True).order_by('-stars')
     top_two_reviews_list = []
     final_top_two_reviews_list = []
@@ -27,9 +29,10 @@ def index(request):
             final_top_two_reviews_list.append(top_two_reviews_list[i])
     else:
         final_top_two_reviews_list = top_two_reviews_list
-        
+    
+    # Recent two jobs 
     status = get_object_or_404(Status, name="New")
-    jobs_list = Project.objects.filter(is_active= True, status = status)
+    jobs_list = Project.objects.filter(is_active= True, status = status).order_by('-pk')
     
     top_two_jobs_list = []
     if len(jobs_list) < 2:
@@ -37,6 +40,7 @@ def index(request):
     else:
         for i in range (0,2):
             top_two_jobs_list.append(jobs_list[i])
+    
     
     for language in jobs_list:
         languges = language.language.all()
@@ -69,7 +73,7 @@ def index(request):
 
 def search(request):
     status = get_object_or_404(Status, name="New")
-    job_list = Project.objects.filter(is_active = True, status = status)
+    job_list = Project.objects.filter(is_active = True, status = status).order_by('-pk')
     job_filter = JobsFilter(request.GET, queryset=job_list)
     for language in job_list:
         languges = language.language.all()
@@ -80,7 +84,6 @@ def search_freelancer(request):
     freelancer_filter = FreelancersFilter(request.GET, queryset=freelancer_list)
     for lang in freelancer_list:
         languges = lang.language.all()
-    print(languges, "lang")    
     return render(request, 'find_freelancer.html', {'freelancer_filter': freelancer_filter, 'languges':languges})
 
 def signup_freelancer(request):
@@ -123,7 +126,6 @@ def login(request):
         password = request.POST.get('password')
         user = authenticate(username = username, password = password)
         if user is not None:
-            print("correct")
             log_me_in(request,user)
             return redirect(index)
             
@@ -177,7 +179,6 @@ def profile_freelancer(request):
     else:
         list_skills= []
     
-    print(freelancer_profile.language.all())
     return render(request, 'profile_freelancer.html' , {'freelancer_user':freelancer_user, 'freelancer_profile':freelancer_profile, 
                                                         'review':reviews, 'projects_number':projects_worked_number, 'list_skills':list_skills,
                                                         'languges':freelancer_profile.language.all(), 'edit':'edit', 'projects_worked':projects_worked,
@@ -434,8 +435,6 @@ def job_post_employer(request, id):
 def signup_global(request):
     return render(request, 'signup_global.html')
 
-def hire_freelancer(request):
-    return render(request, 'hire_freelancer.html')
 
 # Change user password
 def change_password(request):
@@ -454,21 +453,14 @@ def change_password(request):
         'form': form
     })
 
-def success(request, session_id):
-    return render(request, 'success.html')
-    
-def cancel(request):
-    return render(request, 'cancel.html')
-
+#Employer payment list
 def employer_payment(request):
     user = request.user
     employer_payment = Payments.objects.filter(is_active= True, employer = user)
-    print(employer_payment)
     return render(request, 'payment.html', {'employer_payment':employer_payment,'user':user})
 
+#Freelancer payment list
 def freelancer_payment(request):
     user = request.user
     freelancer_payment = Payments.objects.filter(is_active= True, freelancer = user)
-    for i in freelancer_payment:
-        print(i)
     return render(request, 'payment.html', {'freelancer_payment':freelancer_payment,'user':user})
