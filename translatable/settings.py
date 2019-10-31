@@ -81,27 +81,18 @@ WSGI_APPLICATION = 'translatable.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': '**',
-#         'USER': '**',
-#         'PASSWORD':'**',
-#         'HOST':'**',
-#         'PORT':''
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Translatable_db',
-        'USER': 'root',
-        'PASSWORD':'root1234',
-        'HOST':'translatable.ctr3xxx4mow6.ca-central-1.rds.amazonaws.com',
+        'NAME': '**',
+        'USER': '**',
+        'PASSWORD':'**',
+        'HOST':'**',
         'PORT':''
     }
 }
+
+
 
 
 
