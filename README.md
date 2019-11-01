@@ -10,7 +10,7 @@
 # Demo in Heroku
 
 This website is hosted on Heroku server in the following link:
-http://handlebarsjs.com
+https://translatable.herokuapp.com/
 
 ## UX
 
